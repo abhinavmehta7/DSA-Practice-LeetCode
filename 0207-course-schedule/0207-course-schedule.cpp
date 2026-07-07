@@ -5,7 +5,7 @@ public:
         for (auto& pre : prerequisites) {
             adj[pre[1]].push_back(pre[0]);
         }
-        vector<int> indegree(numCourses,0),ans;
+        vector<int> indegree(numCourses,0);
         queue<int> q;
         for(int i=0;i<numCourses;i++){
             for(auto& x:adj[i]){
@@ -18,7 +18,6 @@ public:
         int cnt=0;
         while(!q.empty()){
             int node=q.front();
-            ans.push_back(node);
             cnt++;
             q.pop();
             for(auto& x:adj[node]){
