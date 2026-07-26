@@ -1,10 +1,20 @@
 class Solution {
 public:
     int maximumProduct(vector<int>& nums) {
-        int n=nums.size();
-        sort(nums.begin(),nums.end());
-        long long prod1=nums[n-1]*nums[n-2]*nums[n-3];
-        long long prod2=nums[0]*nums[1]*nums[n-1];
-        return max(prod1,prod2);
+       int a = -1001, b = a, c = b;   
+        int x =  1001, y = x;           
+
+        for (auto& n : nums) {
+            int pa = a, pb = b, px = x; 
+
+            a = max(a, n);              
+            b = max(b, min(pa, n));     
+            c = max(c, min(pb, n));     
+
+            x = min(x, n);              
+            y = min(y, max(px, n));     
+        }
+
+        return max(a * b * c, a * x * y);
     }
 };
