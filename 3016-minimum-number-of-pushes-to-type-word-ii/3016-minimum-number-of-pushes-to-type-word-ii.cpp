@@ -5,8 +5,7 @@ public:
         for(auto& c:word){
             v[c-'a']++;
         }
-        sort(v.begin(),v.end());
-        reverse(v.begin(),v.end());
+        sort(v.begin(),v.end(),greater<int>());
         long long sum=0,j=0;
         for(int i=0;i<26;i++){
             j=(8+i)/8;
