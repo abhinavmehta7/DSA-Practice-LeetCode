@@ -1,16 +1,16 @@
 class Solution {
 public:
     vector<int> findMissingElements(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n=nums.size(),s=nums[n-1]-nums[0]+1;
-        vector<int> v;
-        for(int i=0,j=nums[0];i<n;i++){
-            while(nums[i]>j){
-                v.push_back(j);
-                j++;
-            }
-            j++;
+        bitset<101> hasX=0;
+        int xMin=101, xMax=0;
+        for(int x: nums){
+            hasX[x]=1;
+            xMin=min(x, xMin);
+            xMax=max(x, xMax);
         }
-        return v;
+        vector<int> ans;
+        for(int x=xMin+1; x<xMax; x++)
+            if (!hasX[x]) ans.push_back(x);
+        return ans;
     }
 };
