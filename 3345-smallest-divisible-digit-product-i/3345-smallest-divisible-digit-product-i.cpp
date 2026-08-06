@@ -1,20 +1,19 @@
 class Solution {
 public:
     int smallestNumber(int n, int t) {
-        while(true){
-            if(n==101){
-                n--;
-                break;
-            }
-            int prod=1;
-            int k=n;
-            while(k!=0){
-                prod*=(k%10);
-                k/=10;
-            }
-            if(prod%t==0) return n;
-            else n++;
-        }
-        return n;
+        auto [q, r] = div(n, 10);
+
+        int req = t / gcd(max(q, 1), t);
+        int nxt;
+
+        if (r % req == 0)
+            nxt = r;
+        else
+            nxt = (r / req + 1) * req;
+
+        if (nxt < 10)
+            return q * 10 + nxt;
+
+        return (q + 1) * 10;
     }
 };
