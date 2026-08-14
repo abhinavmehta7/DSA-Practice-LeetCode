@@ -1,16 +1,15 @@
 class Solution {
 public:
     int maximumLengthSubstring(string s) {
-        vector<int> v(26,0);
-        int len=1;
-        for(int i=0,j=0;i<s.size();i++){
-            v[s[i]-'a']++;
-            while(j<i && v[s[i]-'a']>2){
-                v[s[j]-'a']--;
-                j++;
-            }
-            len=max(len,i+1-j);
+        int res = 0;
+        uint64_t mask = 0;
+        for (int l = 0, r = 0; r < s.length(); r++) {
+            int k = (s[r] & 31) << 1;
+            mask += 1ULL << k;
+            while (((mask >> k) & 3) == 3)
+                mask -= 1ULL << ((s[l++] & 31) << 1);
+            res = max(res, r - l + 1);
         }
-        return len;
+        return res;
     }
 };
