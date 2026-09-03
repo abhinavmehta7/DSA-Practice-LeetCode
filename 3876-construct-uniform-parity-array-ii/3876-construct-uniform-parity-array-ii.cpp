@@ -1,12 +1,9 @@
 class Solution {
 public:
     bool uniformArray(vector<int>& nums1) {
-        int n=nums1.size();
-        int sme=INT_MAX,smo=INT_MAX;
-        for(int i=0;i<n;i++){
-            if(nums1[i]%2==0) sme=min(sme,nums1[i]);
-            else smo=min(smo,nums1[i]);
-        }
-        return (smo==INT_MAX || sme==INT_MAX || sme>smo);
+        uint32_t x[2] = {-1u, -1u};
+        for (uint32_t a : nums1)
+            x[a & 1] = min(x[a & 1], a); 
+        return x[1] < x[0] | x[1] == -1u;
     }
 };
