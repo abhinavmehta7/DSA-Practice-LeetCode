@@ -11,23 +11,14 @@
  */
 class Solution {
 public:
-    int val(TreeNode* node){
-        if(!node) return 0;
-        return val(node->left)+val(node->right)+node->val;
-    }
-    int size(TreeNode* node){
-        if(!node->left && !node->right) return 1;
-        else if(node->left && !node->right) return size(node->left)+1;
-        else if(!node->left && node->right) return size(node->right)+1;
-        else return size(node->left) + size(node->right) + 1;
-    }
-    void dfs(TreeNode* node,int& count){
-        if(!node) return;
-        int average=val(node)/size(node);
-        if(average==node->val) count++;
-        dfs(node->left,count);
-        dfs(node->right,count);
-        return ;
+    pair<int,int> dfs(TreeNode* node,int& count) {
+        if (!node) return {0, 0};
+        auto [ls, lc] = dfs(node->left,count);
+        auto [rs, rc] = dfs(node->right,count);
+        int sum = ls + rs + node->val;
+        int cnt = lc + rc + 1;
+        if (sum / cnt == node->val) count++;
+        return {sum, cnt};
     }
     int averageOfSubtree(TreeNode* root) {
         int count=0;
